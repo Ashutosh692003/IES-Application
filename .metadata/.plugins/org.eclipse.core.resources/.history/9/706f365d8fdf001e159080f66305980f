@@ -1,0 +1,12 @@
+package com.Ashutosh.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.Ashutosh.entity.educationEntity;
+
+public interface educationEntityRepo  extends JpaRepository<educationEntity,Integer>{
+	 @Query(value = "SELECT  *  FROM DC_EDUCATION WHERE case_num_case_num:caseNum" ,nativeQuery=true)
+          public educationEntity findBycaseNum(Integer caseNum)	;
+
+}

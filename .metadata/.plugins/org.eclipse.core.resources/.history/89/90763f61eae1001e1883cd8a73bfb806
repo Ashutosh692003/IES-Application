@@ -1,0 +1,11 @@
+package com.Ashutosh.service;
+
+import com.Ashutosh.binding.eligEntityBinding;
+
+public interface singleServiceInterface { 
+	
+	 public eligEntityBinding viewCorrespondece(Integer caseNum);
+		 
+	 
+
+}

@@ -1,0 +1,19 @@
+package com.Ashutosh.service;
+
+import java.util.List;
+
+import com.Ashutosh.binding.eligEntityBinding;
+
+import jakarta.servlet.http.HttpServlet;
+
+public interface singleServiceInterface { 
+	
+	 public eligEntityBinding viewCorrespondece(Integer caseNum);
+	 
+	 public List<eligEntityBinding> pending();
+	 
+	 public boolean pdfGenerator (HttpServlet resp,Integer caseNum);
+		 
+	 
+
+}

@@ -1,0 +1,56 @@
+package com.Ashutosh.service;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Ashutosh.binding.eligEntityBinding;
+import com.Ashutosh.entity.childEntity;
+import com.Ashutosh.entity.educationEntity;
+import com.Ashutosh.entity.incomeEntity;
+import com.Ashutosh.entity.planSelectionEntity;
+import com.Ashutosh.entity.plansEntity;
+import com.Ashutosh.repo.childRepo;
+import com.Ashutosh.repo.educationEntityRepo;
+import com.Ashutosh.repo.incomeRepo;
+import com.Ashutosh.repo.planSelectionRepo;
+import com.Ashutosh.repo.plansRepo;
+@Service
+public class service implements serviceInterface {
+
+	                 @Autowired
+	                 planSelectionRepo psRepo;
+	                 
+	                 @Autowired
+	                 plansRepo pRepo;
+	                 
+	                 @Autowired
+	                 incomeRepo iRepo;
+	                 
+	                 @Autowired
+	                 educationEntityRepo eRepo;
+	                 
+	                 @Autowired
+	                 childRepo chRepo;
+	@Override
+	public eligEntityBinding eligDetermin(Integer caseNum) {
+		                          planSelectionEntity ps = psRepo.findBycaseNum(caseNum)   ;
+		                                          Integer planId = ps.getPlanId();
+		                                           plansEntity plan = pRepo.findById(planId).get();
+		                                           String planName = plan.getPlanName();
+		                                           
+		                                  eligEntityBinding response = new eligEntityBinding();
+		                                  
+		                         incomeEntity income = iRepo.findBycaseNum(caseNum);
+		                         educationEntity education = eRepo.findBycaseNum(caseNum);
+		                         List<childEntity> children = chRepo.findByCase_Number(caseNum);
+		                         
+		                        
+		                          if("SNAP".equals(planName)) {
+		                        	  
+		                          }
+		                                          
+		return null;
+	}
+
+}

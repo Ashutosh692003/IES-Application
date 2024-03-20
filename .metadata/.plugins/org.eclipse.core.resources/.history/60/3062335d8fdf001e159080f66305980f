@@ -1,0 +1,12 @@
+package com.Ashutosh.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.Ashutosh.entity.educationEntity;
+import com.Ashutosh.entity.planSelectionEntity;
+
+public interface planSelectionRepo extends JpaRepository<planSelectionEntity,Integer> {
+	 @Query(value = "SELECT  *  FROM DC_plan_selection WHERE case_num :caseNum" ,nativeQuery=true)
+	   public planSelectionEntity findBycaseNum(Integer caseNum)	;
+}

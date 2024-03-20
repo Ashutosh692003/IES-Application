@@ -1,0 +1,141 @@
+package com.Ashutosh.service;
+
+
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Ashutosh.binding.eligEntityBinding;
+import com.Ashutosh.entity.childEntity;
+import com.Ashutosh.entity.educationEntity;
+import com.Ashutosh.entity.incomeEntity;
+import com.Ashutosh.entity.planSelectionEntity;
+import com.Ashutosh.entity.plansEntity;
+import com.Ashutosh.repo.appEntityRepo;
+import com.Ashutosh.repo.childRepo;
+import com.Ashutosh.repo.educationEntityRepo;
+import com.Ashutosh.repo.incomeRepo;
+import com.Ashutosh.repo.planSelectionRepo;
+import com.Ashutosh.repo.plansRepo;
+@Service
+public class service implements serviceInterface {
+
+	                 @Autowired
+	                 planSelectionRepo psRepo;
+	                 
+	                 @Autowired
+	                 plansRepo pRepo;
+	                 
+	                 @Autowired
+	                 incomeRepo iRepo;
+	                 
+	                 @Autowired
+	                 educationEntityRepo eRepo;
+	                 
+	                 @Autowired
+	                 childRepo chRepo;
+	                 
+	                 @Autowired
+	                 appEntityRepo appRepo;
+	@Override
+	public eligEntityBinding eligDetermin(Integer caseNum) {
+		                          planSelectionEntity ps = psRepo.findBycaseNum(caseNum)   ;
+		                                          Integer planId = ps.getPlanId();
+		                                           plansEntity plan = pRepo.findById(planId).get();
+		                                           String planName = plan.getPlanName();
+		                                           
+		                                  eligEntityBinding response = new eligEntityBinding();
+		                                  
+		                         incomeEntity income = iRepo.findBycaseNum(caseNum);
+		                         educationEntity education = eRepo.findBycaseNum(caseNum);
+		                         List<childEntity> children = chRepo.findByCase_Number(caseNum);
+		                         response.setPlanName(planName);
+		                         response.setCaseNum(caseNum);
+		                        
+		                          if("SNAP".equals(planName)) {
+		                        	   
+		                        Integer salary = 	    Integer.parseInt(income.getSalary());
+		                        	            if(salary>20000)  {
+		                        	            	 response.setPlanStatus("DENIAL"); 
+		                        	            	 response.setDenialReason("High Salary Income");
+		                        	            }
+		                        	            else {
+		                        	            	         response.setPlanStatus("APPROVED");
+		                        	            	         response.setDenialReason("N/A");
+		                        	            	         response.setEligStartDate(LocalDate.now());
+		                        	            	         response.setEligEndDate(LocalDate.now().plusMonths(6));
+		                        	            	         response.setBenifitAmt(5000);
+		                        	            }
+		                          }
+		                          
+		                          else if("CCAP".equals(planName)) {
+				                        Integer salary = 	    Integer.parseInt(income.getSalary());
+				                        Long childCount = children.stream().count();
+				                        boolean ageCondition =true;
+				                        
+				                        for(childEntity ch:children) {
+				                             LocalDate dob = ch.getDob();
+				                             Period period = Period.between(dob, LocalDate.now());
+				                            
+				                             if(period.getYears()>16) {
+				                            	      ageCondition = false;
+				                             }
+				                        }
+				                        
+				                        	            if(salary>20000)  {
+				                        	            	 response.setPlanStatus("DENIAL"); 
+				                        	            	 response.setDenialReason("High Salary Income");
+				                        	            }
+				                        	            else if(childCount==0) {
+				                        	            	 response.setPlanStatus("DENIAL"); 
+				                        	            	 response.setDenialReason("The application does not currently meet the eligibility criteria of having at least one dependent child.");
+				                        	            }
+				                        	            else if(ageCondition==false) {
+				                        	            	response.setPlanStatus("DENIAL"); 
+				                        	            	 response.setDenialReason("The dependent children listed on the application does not meet the age requirement for this program");
+				                        	            }
+				                        	            else {
+				                        	            	         response.setPlanStatus("APPROVED");
+				                        	            	         response.setDenialReason("N/A");
+				                        	            	         response.setEligStartDate(LocalDate.now());
+				                        	            	         response.setEligEndDate(LocalDate.now().plusMonths(6));
+				                        	            	         response.setBenifitAmt(4500);
+				                        	            }
+				                          }
+		                          else if("MEDICAID".equals(planName)) {
+		                        	  Integer salary = 	    Integer.parseInt(income.getSalary());
+		                        	  Integer rent = Integer.parseInt(income.getRentIncome());
+		                        	  Integer property = Integer.parseInt(income.getPropertyIncome());
+		                        	    Integer extraIncome = rent +property;
+		                        	    if(salary>20000)  {
+                       	            	 response.setPlanStatus("DENIAL"); 
+                       	            	 response.setDenialReason("High Salary Income");
+                       	            }
+		                        	    else if(extraIncome>0) {
+		                        	    	 response.setPlanStatus("DENIAL"); 
+	                       	            	 response.setDenialReason("Extra Income Sources...");
+		                        	    }
+		                        	    else {
+               	            	         response.setPlanStatus("APPROVED");
+               	            	         response.setDenialReason("N/A");
+               	            	         response.setEligStartDate(LocalDate.now());
+               	            	         response.setEligEndDate(LocalDate.now().plusMonths(6));
+               	            	         response.setBenifitAmt(10000);
+               	            }
+		                        	     
+		                        	  
+		                          }
+		                          
+		                          else if("MEDICARE".equals(planName)) {
+		                        	       
+		                          }
+		                          
+		                                          
+		return null;
+	}
+
+}

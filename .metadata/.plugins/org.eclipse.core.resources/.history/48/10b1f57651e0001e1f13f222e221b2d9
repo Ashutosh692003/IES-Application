@@ -1,0 +1,10 @@
+package com.Ashutosh.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.Ashutosh.entity.entityEligibility;
+
+public interface eligibilityRepo  extends JpaRepository<entityEligibility,Integer> {
+
+	 public entityEligibility findByCaseNum(Integer caseNum);
+}

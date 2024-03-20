@@ -1,0 +1,44 @@
+package com.Ashutosh.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.Ashutosh.binding.eligEntityBinding;
+import com.Ashutosh.entity.coNoticeEntity;
+import com.Ashutosh.entity.entityEligibility;
+import com.Ashutosh.repo.eligibilityRepo;
+import com.Ashutosh.repo.noticeRepo;
+
+public class singleService implements singleServiceInterface {
+	               
+	     @Autowired
+	     eligibilityRepo elRepo;
+                                         @Autowired
+                                         noticeRepo nRepo;
+	@Override
+	public eligEntityBinding viewCorrespondece(Integer caseNum) {
+		                        
+		             entityEligibility elig =                elRepo.findByCaseNum(caseNum);
+		                   eligEntityBinding bind = new eligEntityBinding();
+		                        BeanUtils.copyProperties(elig, bind);
+		                       
+		return bind;
+	}
+
+	@Override
+	public List<eligEntityBinding> pending() {
+	             List<coNoticeEntity>   co =        nRepo.findNoticesByStatus("PENDING") ; 
+	                           List<eligEntityBinding>  PendingList = new ArrayList<> () ;
+	                            
+	                         for(coNoticeEntity notice :co) {
+	                        	  entityEligibility elig = elRepo.findByCaseNum(notice.getCaseNum());
+	                        	  eligEntityBinding bind = new eligEntityBinding();
+	                        	  BeanUtils.copyProperties(elig, bind);
+	                         }
+		return PendingList;
+	}
+
+}

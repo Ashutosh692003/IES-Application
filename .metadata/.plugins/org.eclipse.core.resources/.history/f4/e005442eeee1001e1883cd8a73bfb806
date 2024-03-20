@@ -1,0 +1,25 @@
+package com.Ashutosh.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.Ashutosh.binding.eligEntityBinding;
+import com.Ashutosh.service.singleServiceInterface;
+
+public class controller {
+                                 
+	                      @Autowired
+	                      singleServiceInterface single;
+	                      
+	                      
+	      @GetMapping("/viewCorrespondence/{caseNum}")
+	public eligEntityBinding viewCorrespondence(@PathVariable("caseNum")Integer caseNum){
+	    	  
+	                eligEntityBinding elig = single.viewCorrespondece(caseNum);
+	                return elig;
+	                	
+	}
+}

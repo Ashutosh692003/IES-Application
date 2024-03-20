@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Admin-API/Forgot_password_text.txt&apos; to &apos;Forgot_password_email_body.txt&apos;" description="Rename resource &apos;Forgot_password_text.txt&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Forgot_password_text.txt" name="Forgot_password_email_body.txt" stamp="1709536016453" updateReferences="true"/>
+</session>

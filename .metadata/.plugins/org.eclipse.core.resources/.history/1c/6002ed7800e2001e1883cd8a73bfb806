@@ -1,0 +1,16 @@
+package com.Ashutosh.repo;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.Ashutosh.entity.coNoticeEntity;
+
+public interface noticeRepo extends JpaRepository<coNoticeEntity,Integer> {
+	
+	@Query("select * from co_notices where notice_status = :status")
+	public List<coNoticeEntity> findNoticesByStatus(@Param("status") String status);
+
+}

@@ -1,0 +1,9 @@
+package com.Ashutosh.ExceptionHandler;
+
+import java.time.LocalDateTime;
+
+public class format {
+   private String msg;
+   private String code;
+   private LocalDateTime data;
+}

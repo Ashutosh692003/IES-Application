@@ -1,0 +1,5 @@
+package com.Ashutosh.repo;
+
+public interface noticeRepo {
+
+}

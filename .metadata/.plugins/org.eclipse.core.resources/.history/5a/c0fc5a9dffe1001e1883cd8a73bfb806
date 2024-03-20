@@ -1,0 +1,8 @@
+package com.Ashutosh.service;
+
+import org.springframework.scheduling.annotation.Scheduled;
+
+public interface batchServiceInterface {
+	     @Scheduled(cron="")
+        public void batch();
+}

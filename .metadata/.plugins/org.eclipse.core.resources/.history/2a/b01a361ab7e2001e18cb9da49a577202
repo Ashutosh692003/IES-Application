@@ -1,0 +1,19 @@
+package com.Ashutosh.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.Ashutosh.binding.reportBinding;
+import com.Ashutosh.binding.responseBinding;
+
+@RestController
+public class controller {
+                   
+	              @PostMapping("/getReport")
+	            public List<responseBinding> getReport(reportBinding reportCriteria){
+	            	       
+	            	    
+	            }
+}

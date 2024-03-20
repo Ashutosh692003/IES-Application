@@ -1,0 +1,36 @@
+package com.Ashutosh.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.Ashutosh.binding.reportBinding;
+import com.Ashutosh.binding.responseBinding;
+import com.Ashutosh.entity.entityEligibility;
+
+@Service
+public class service  implements serviceInterface{
+
+	@Override
+	public List<responseBinding> getReports(reportBinding reportCriteria) {
+		                            entityEligibility entity  = new entityEligibility();
+		                 if(reportCriteria.getPlanStatus()!=null && reportCriteria.getPlanStatus().isEmpty()==false) {
+		                	 entity.setPlanStatus(reportCriteria.getPlanStatus());  
+		                 }
+		                 
+		                 if(reportCriteria.getPlanName()!=null && reportCriteria.getPlanName().isEmpty()==false) {
+		                	 entity.setPlanName(reportCriteria.getPlanName()); 
+		                 }
+		                 if(reportCriteria.getEligStartDate()!=null) {
+		                	 entity.setEligStartDate(reportCriteria.getEligStartDate()); 
+		                 }
+		                 if(reportCriteria.getEligEndDate()!=null) {
+		                	 entity.setEligStartDate(reportCriteria.getEligEndDate()); 
+		                 }
+		                             
+		                 
+		                 
+		return null;
+	}
+                
+}
